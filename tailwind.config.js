@@ -81,21 +81,20 @@ module.exports = {
   plugins: [require("@tailwindcss/typography"), require("daisyui")],
   daisyui: {
     themes: [
-      "light",
       {
         portfolio: {
-          "primary": "#FF4C60", // Pink-Red
-          "secondary": "#6C6CE5", // Blue
-          "accent": "#FFD15C", // Yellow
-          "neutral": "#353353", // Dark Purple
-          "base-100": "#353353", // Dark Purple (Background)
-          "base-200": "#302F4E", // Slightly lighter purple
-          "base-300": "#2B2A47", // Darker purple
+          "primary": "#FFB400", // Yellow accent color
+          "secondary": "#242424", // Dark card background
+          "accent": "#1E1E1E", // Dark main background
+          "neutral": "#2D2D2D", // Border color
+          "base-100": "#1E1E1E", // Dark background
+          "base-200": "#242424", // Card background
+          "base-300": "#2D2D2D", // Border color
           "base-content": "#FFFFFF", // White text
-          "info": "#6C6CE5", // Blue
-          "success": "#6C6CE5", // Blue
-          "warning": "#FFD15C", // Yellow
-          "error": "#FF4C60", // Pink-Red
+          "info": "#FFB400",
+          "success": "#10B981",
+          "warning": "#FFB400",
+          "error": "#F94A4A",
         },
       },
     ],

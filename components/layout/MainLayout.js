@@ -11,16 +11,20 @@ import {
   FaCode, 
   FaGraduationCap,
   FaBars,
-  FaTimes
+  FaTimes,
+  FaGithub,
+  FaLinkedin,
+  FaDownload,
+  FaTwitter,
+  FaDribbble
 } from 'react-icons/fa';
 import PowerButton from '../PowerButton';
 
 const menuItems = [
   { icon: FaHome, label: 'Home', href: '#home' },
   { icon: FaUser, label: 'About', href: '#about' },
-  { icon: FaCode, label: 'Skills', href: '#skills' },
-  { icon: FaGraduationCap, label: 'Experience', href: '#experience' },
-  { icon: FaBriefcase, label: 'Projects', href: '#projects' },
+  { icon: FaCode, label: 'Resume', href: '#resume' },
+  { icon: FaBriefcase, label: 'Portfolio', href: '#portfolio' },
   { icon: FaEnvelope, label: 'Contact', href: '#contact' }
 ];
 
@@ -53,13 +57,13 @@ export default function MainLayout({ children }) {
   }, []);
 
   return (
-    <div className="relative min-h-screen bg-base-100">
+    <div className="relative min-h-screen bg-[#1E1E1E]">
       {/* Sidebar - Desktop */}
-      <aside className="fixed top-0 left-0 h-full w-72 bg-base-200 border-r border-base-300 hidden lg:block z-40">
+      <aside className="fixed top-0 left-0 h-full w-[140px] bg-[#242424] text-white hidden lg:block z-40 shadow-xl">
         <div className="flex flex-col h-full">
           {/* Profile Section */}
-          <div className="p-6 text-center border-b border-base-300">
-            <div className="relative w-32 h-32 mx-auto mb-4 rounded-full overflow-hidden ring-2 ring-primary ring-offset-4 ring-offset-base-200">
+          <div className="py-10 text-center">
+            <div className="relative w-24 h-24 mx-auto mb-4 rounded-full overflow-hidden border-4 border-yellow-500">
               <Image
                 src="/images/profile.jpg"
                 alt="Bùi Viết Tuấn Bảo"
@@ -67,71 +71,93 @@ export default function MainLayout({ children }) {
                 className="object-cover"
               />
             </div>
-            <h2 className="text-xl font-bold mb-1">Bùi Viết Tuấn Bảo</h2>
-            <p className="text-sm text-base-content/70">Full Stack Developer</p>
+            <h2 className="text-lg font-bold mb-1">Bùi Viết Tuấn Bảo</h2>
+            <p className="text-sm text-yellow-500">Developer</p>
           </div>
 
           {/* Navigation */}
-          <nav className="flex-1 p-6">
-            <ul className="space-y-2">
+          <nav className="flex-1 pt-8">
+            <ul className="space-y-1">
               {menuItems.map(({ icon: Icon, label, href }) => (
                 <li key={label}>
                   <a
                     href={href}
-                    className={`flex items-center space-x-3 px-4 py-3 rounded-lg transition-all ${
+                    className={`flex flex-col items-center py-4 transition-all duration-300 relative ${
                       activeSection === href.slice(1)
-                        ? 'bg-primary/10 text-primary translate-x-2'
-                        : 'hover:bg-base-300 hover:translate-x-1'
+                        ? 'text-yellow-500 bg-[#1E1E1E]'
+                        : 'text-gray-400 hover:text-yellow-500'
                     }`}
                     onClick={() => setActiveSection(href.slice(1))}
                   >
-                    <Icon className={`w-5 h-5 transition-transform ${
+                    {activeSection === href.slice(1) && (
+                      <motion.div
+                        layoutId="activeTab"
+                        className="absolute inset-0 bg-[#1E1E1E]"
+                        transition={{ type: "spring", duration: 0.5 }}
+                      />
+                    )}
+                    <Icon className={`w-5 h-5 relative z-10 ${
                       activeSection === href.slice(1) ? 'scale-110' : ''
                     }`} />
-                    <span className="font-medium">{label}</span>
+                    <span className="text-xs mt-1 relative z-10">{label}</span>
                   </a>
                 </li>
               ))}
             </ul>
           </nav>
 
-          {/* Footer */}
-          <div className="p-6 border-t border-base-300">
-            <p className="text-sm text-center text-base-content/70">
-              © {new Date().getFullYear()} All rights reserved
-            </p>
+          {/* Social Links */}
+          <div className="py-8 border-t border-[#2D2D2D]">
+            <div className="flex flex-col items-center space-y-4">
+              <a href="https://github.com/Baobui2407" target="_blank" rel="noopener noreferrer" 
+                 className="text-gray-400 hover:text-yellow-500 transition-colors">
+                <FaGithub className="w-5 h-5" />
+              </a>
+              <a href="https://linkedin.com/" target="_blank" rel="noopener noreferrer" 
+                 className="text-gray-400 hover:text-yellow-500 transition-colors">
+                <FaLinkedin className="w-5 h-5" />
+              </a>
+              <a href="https://twitter.com/" target="_blank" rel="noopener noreferrer" 
+                 className="text-gray-400 hover:text-yellow-500 transition-colors">
+                <FaTwitter className="w-5 h-5" />
+              </a>
+              <a href="https://dribbble.com/" target="_blank" rel="noopener noreferrer" 
+                 className="text-gray-400 hover:text-yellow-500 transition-colors">
+                <FaDribbble className="w-5 h-5" />
+              </a>
+            </div>
           </div>
         </div>
       </aside>
 
       {/* Mobile Header */}
       <header 
-        className={`lg:hidden fixed top-0 left-0 right-0 z-50 transition-colors duration-300 ${
+        className={`lg:hidden fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
           isScrolled || isMobileMenuOpen 
-            ? 'bg-base-200/95 backdrop-blur-md shadow-md' 
+            ? 'bg-gray-900/95 backdrop-blur-md shadow-lg' 
             : 'bg-transparent'
         }`}
       >
-        <div className="flex items-center justify-between px-4 py-3">
-          <div className="flex items-center space-x-3">
-            <div className="w-10 h-10 rounded-full overflow-hidden ring-2 ring-primary">
+        <div className="flex items-center justify-between px-6 py-4">
+          <div className="flex items-center space-x-4">
+            <div className="w-12 h-12 rounded-full overflow-hidden border-2 border-primary/30">
               <Image
                 src="/images/profile.jpg"
                 alt="Bùi Viết Tuấn Bảo"
-                width={40}
-                height={40}
+                width={48}
+                height={48}
                 className="object-cover"
               />
             </div>
             <div>
-              <h2 className="text-sm font-bold">Bùi Viết Tuấn Bảo</h2>
-              <p className="text-xs text-base-content/70">Full Stack Developer</p>
+              <h2 className="text-base font-heading font-bold text-white">Bùi Viết Tuấn Bảo</h2>
+              <p className="text-sm text-gray-400">Full Stack Developer</p>
             </div>
           </div>
 
           <button
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            className="p-2 hover:bg-base-300 rounded-lg transition-colors"
+            className="p-2 hover:bg-gray-800 rounded-lg transition-colors text-white"
             aria-label="Toggle menu"
           >
             {isMobileMenuOpen ? (
@@ -144,20 +170,20 @@ export default function MainLayout({ children }) {
 
         {/* Mobile Menu */}
         <motion.nav
-          className={`${isMobileMenuOpen ? 'block' : 'hidden'} lg:hidden bg-base-200/95 backdrop-blur-md border-b border-base-300`}
+          className={`${isMobileMenuOpen ? 'block' : 'hidden'} lg:hidden bg-gray-900/95 backdrop-blur-md border-t border-gray-800`}
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: -20 }}
         >
-          <ul className="p-4">
+          <ul className="py-4">
             {menuItems.map(({ icon: Icon, label, href }) => (
               <li key={label}>
                 <a
                   href={href}
-                  className={`flex items-center space-x-3 px-4 py-3 rounded-lg transition-all ${
+                  className={`flex items-center space-x-4 px-6 py-4 transition-all ${
                     activeSection === href.slice(1)
-                      ? 'bg-primary/10 text-primary translate-x-2'
-                      : 'hover:bg-base-300 hover:translate-x-1'
+                      ? 'bg-gray-800 text-primary'
+                      : 'text-gray-400 hover:bg-gray-800/50 hover:text-white'
                   }`}
                   onClick={() => {
                     setActiveSection(href.slice(1));
@@ -167,21 +193,50 @@ export default function MainLayout({ children }) {
                   <Icon className={`w-5 h-5 transition-transform ${
                     activeSection === href.slice(1) ? 'scale-110' : ''
                   }`} />
-                  <span className="font-medium">{label}</span>
+                  <span className="uppercase text-sm tracking-wider">{label}</span>
                 </a>
               </li>
             ))}
+            
+            {/* Mobile Social Links */}
+            <li className="mt-6 px-6">
+              <div className="flex space-x-4 justify-center pt-4 border-t border-gray-800">
+                <a href="https://github.com/Baobui2407" target="_blank" rel="noopener noreferrer" 
+                   className="text-gray-400 hover:text-primary transition-colors">
+                  <FaGithub className="w-5 h-5" />
+                </a>
+                <a href="https://linkedin.com/" target="_blank" rel="noopener noreferrer" 
+                   className="text-gray-400 hover:text-primary transition-colors">
+                  <FaLinkedin className="w-5 h-5" />
+                </a>
+                <a href="mailto:contact@example.com" 
+                   className="text-gray-400 hover:text-primary transition-colors">
+                  <FaEnvelope className="w-5 h-5" />
+                </a>
+              </div>
+            </li>
           </ul>
         </motion.nav>
       </header>
 
       {/* Main Content */}
-      <main className="lg:pl-72 min-h-screen">
-        <div className="h-full">{children}</div>
+      <main className="lg:pl-[140px] min-h-screen bg-[#1E1E1E] p-8">
+        <div className="max-w-[1000px] mx-auto">
+          <div className="bg-[#242424] rounded-lg shadow-xl p-8">
+            {children}
+          </div>
+        </div>
       </main>
 
-      {/* Power Button */}
-      <PowerButton />
+      {/* Download CV Button */}
+      <a
+        href="/cv.pdf"
+        className="fixed bottom-8 right-8 z-50 bg-yellow-500 hover:bg-yellow-600 text-black font-medium px-6 py-3 rounded-full flex items-center space-x-2 transition-all duration-300 shadow-lg"
+        download
+      >
+        <FaDownload className="w-4 h-4" />
+        <span>Download CV</span>
+      </a>
     </div>
   );
 }

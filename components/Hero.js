@@ -1,139 +1,207 @@
-import { motion } from 'framer-motion';
-import { FaGithub, FaLinkedin, FaFacebook, FaDownload } from 'react-icons/fa';
+import { motion, AnimatePresence } from 'framer-motion';
+import { FaGithub, FaLinkedin, FaFacebook, FaDownload, FaArrowRight } from 'react-icons/fa';
 import Image from 'next/image';
+import { TypeAnimation } from 'react-type-animation';
+
+const buttonVariants = {
+  hover: {
+    scale: 1.05,
+    transition: {
+      duration: 0.3,
+      yoyo: Infinity
+    }
+  }
+};
+
+const socialVariants = {
+  hover: {
+    y: -5,
+    transition: {
+      duration: 0.3,
+      ease: "easeOut"
+    }
+  }
+};
 
 export default function Hero() {
   return (
-    <section id="home" className="relative min-h-screen flex items-center">
-      {/* Background Effect */}
-      <div className="absolute inset-0 z-0 overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent" />
-        <div className="absolute inset-0 opacity-10">
-          <div className="absolute w-full h-full animate-[spin_20s_linear_infinite] origin-center">
-            <div className="absolute inset-0 bg-[radial-gradient(circle_800px_at_50%_50%,rgba(var(--primary-rgb),0.1),transparent_100%)]" />
-          </div>
-        </div>
+    <section className="relative min-h-screen flex items-center bg-gray-100 dark:bg-gray-900 overflow-hidden">
+      {/* Background Shapes */}
+      <div className="absolute inset-0 z-0">
+        <motion.div
+          initial={{ scale: 0, opacity: 0 }}
+          animate={{ scale: 1, opacity: 1 }}
+          transition={{ duration: 1.5, ease: "easeOut" }}
+          className="absolute inset-0"
+        >
+          <motion.div 
+            className="absolute top-20 left-20 w-60 h-60 rounded-full bg-primary/5 animate-float"
+            animate={{
+              scale: [1, 1.2, 1],
+              opacity: [0.5, 0.8, 0.5],
+            }}
+            transition={{
+              duration: 8,
+              repeat: Infinity,
+              ease: "easeInOut"
+            }}
+          />
+          <motion.div 
+            className="absolute bottom-20 right-20 w-40 h-40 rounded-full bg-secondary/5 animate-float"
+            animate={{
+              scale: [1.2, 1, 1.2],
+              opacity: [0.5, 0.8, 0.5],
+            }}
+            transition={{
+              duration: 8,
+              repeat: Infinity,
+              ease: "easeInOut",
+              delay: 1
+            }}
+          />
+          <motion.div 
+            className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-80 h-80 rounded-full bg-accent/5 animate-float"
+            animate={{
+              scale: [1, 1.1, 1],
+              opacity: [0.5, 0.8, 0.5],
+            }}
+            transition={{
+              duration: 8,
+              repeat: Infinity,
+              ease: "easeInOut",
+              delay: 2
+            }}
+          />
+        </motion.div>
       </div>
 
       <div className="container mx-auto px-4 z-10">
-        <div className="max-w-5xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-          {/* Image - Now on left for larger screens */}
+        <div className="max-w-6xl mx-auto">
+          {/* Content */}
           <motion.div
-            className="lg:col-span-5 order-2 lg:order-1"
-            initial={{ opacity: 0, scale: 0.8 }}
-            animate={{ opacity: 1, scale: 1 }}
+            className="text-center"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
           >
-            <div className="relative w-full max-w-md mx-auto">
-              <div className="relative aspect-[3/4] rounded-[30px] overflow-hidden shadow-2xl">
-                {/* Decorative elements */}
-                <div className="absolute -inset-0.5 bg-gradient-to-br from-primary/50 to-primary/20 opacity-50" />
-                <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-black/50" />
-                
-                <Image
-                  src="/images/profile.jpg"
-                  alt="Bùi Viết Tuấn Bảo"
-                  fill
-                  className="object-cover"
-                  priority
-                />
-
-                {/* Social links overlay */}
-                <div className="absolute bottom-6 left-0 right-0 flex justify-center gap-4">
-                  {[
-                    { icon: FaGithub, href: 'https://github.com/yourusername' },
-                    { icon: FaLinkedin, href: 'https://linkedin.com/in/yourusername' },
-                    { icon: FaFacebook, href: 'https://facebook.com/yourusername' }
-                  ].map((social, index) => (
-                    <motion.a
-                      key={index}
-                      href={social.href}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="w-10 h-10 bg-white/90 text-primary rounded-full flex items-center justify-center hover:bg-primary hover:text-white transition-all shadow-lg backdrop-blur-sm"
-                      whileHover={{ scale: 1.1 }}
-                      whileTap={{ scale: 0.95 }}
-                    >
-                      <social.icon className="w-5 h-5" />
-                    </motion.a>
-                  ))}
-                </div>
-              </div>
-            </div>
-          </motion.div>
-
-          {/* Text Content */}
-          <motion.div
-            className="lg:col-span-7 order-1 lg:order-2 text-center lg:text-left"
-            initial={{ opacity: 0, x: -50 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8 }}
-          >
-            <motion.div
-              className="inline-block px-6 py-2 bg-primary/10 text-primary rounded-full mb-6"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
+            <motion.h1
+              className="text-4xl md:text-7xl font-heading font-bold mb-6"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.2 }}
             >
-              <span className="text-lg font-medium">Hello, I'm</span>
-            </motion.div>
-            
-            <motion.h1
-              className="text-4xl md:text-6xl lg:text-7xl font-bold mb-6 leading-tight"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.3 }}
-            >
-              Bùi Viết{" "}
+              Hello, I'm{" "}
               <span className="text-primary">
-                Tuấn Bảo
+                Bùi Viết Tuấn Bảo
               </span>
             </motion.h1>
-            
-            <motion.h2
-              className="text-xl md:text-2xl text-base-content/70 mb-8"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
+
+            <motion.div
+              className="text-xl md:text-2xl text-gray-600 dark:text-gray-400 mb-8 h-12"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
               transition={{ delay: 0.4 }}
             >
-              Full Stack Developer based in Đà Nẵng, Vietnam
-            </motion.h2>
+              <TypeAnimation
+                sequence={[
+                  'Full Stack Developer',
+                  2000,
+                  'UI/UX Designer',
+                  2000,
+                  'Mobile App Developer',
+                  2000
+                ]}
+                wrapper="span"
+                speed={50}
+                repeat={Infinity}
+              />
+            </motion.div>
 
             <motion.p
-              className="text-base-content/80 mb-12 max-w-2xl mx-auto lg:mx-0"
+              className="text-lg text-gray-600 dark:text-gray-400 mb-12 max-w-3xl mx-auto"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.5 }}
             >
-              I specialize in building exceptional digital experiences, combining 
-              beautiful code with delightful user interfaces. Let's work together 
-              to bring your ideas to life.
+              Based in Đà Nẵng, Vietnam. I'm passionate about creating beautiful and 
+              functional digital experiences that make a difference.
             </motion.p>
 
             <motion.div
-              className="flex flex-wrap gap-4 justify-center lg:justify-start"
+              className="flex flex-wrap gap-6 justify-center mb-16"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.6 }}
             >
-              <a
-                href="#contact"
-                className="btn btn-primary btn-lg px-8"
+              <motion.a
+                href="#portfolio"
+                className="btn btn-primary btn-lg px-8 rounded-full font-medium flex items-center gap-2 hover:gap-4 transition-all group"
+                variants={buttonVariants}
+                whileHover="hover"
+                whileTap={{ scale: 0.95 }}
               >
-                Hire Me
-              </a>
-              <a
+                View My Work
+                <FaArrowRight className="group-hover:translate-x-1 transition-transform" />
+              </motion.a>
+              <motion.a
                 href="/resume.pdf"
-                className="btn btn-outline btn-lg px-8"
+                className="btn btn-outline btn-lg px-8 rounded-full hover:bg-gray-900 hover:text-white dark:hover:bg-white dark:hover:text-gray-900 transition-all group"
                 download
+                variants={buttonVariants}
+                whileHover="hover"
+                whileTap={{ scale: 0.95 }}
               >
-                <FaDownload className="mr-2" />
+                <FaDownload className="mr-2 group-hover:scale-110 transition-transform" />
                 Download CV
-              </a>
+              </motion.a>
+            </motion.div>
+
+            {/* Social Links */}
+            <motion.div
+              className="flex justify-center gap-6"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.7 }}
+            >
+              {[
+                { icon: FaGithub, href: 'https://github.com/Baobui2407', label: 'GitHub' },
+                { icon: FaLinkedin, href: 'https://linkedin.com/', label: 'LinkedIn' },
+                { icon: FaFacebook, href: 'https://facebook.com/', label: 'Facebook' }
+              ].map((social, index) => (
+                <motion.a
+                  key={social.label}
+                  href={social.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-12 h-12 bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400 rounded-full flex items-center justify-center hover:bg-primary hover:text-white transition-colors relative group"
+                  variants={socialVariants}
+                  whileHover="hover"
+                  whileTap={{ scale: 0.95 }}
+                >
+                  <social.icon className="w-5 h-5 group-hover:scale-110 transition-transform" />
+                  <motion.div
+                    className="absolute -inset-0.5 bg-primary rounded-full opacity-0 group-hover:opacity-20 transition-opacity"
+                    initial={false}
+                    animate={{ scale: [0.8, 1.2, 1] }}
+                  />
+                </motion.a>
+              ))}
             </motion.div>
           </motion.div>
         </div>
       </div>
+
+      {/* Scroll Indicator */}
+      <motion.div
+        className="absolute bottom-8 left-1/2 -translate-x-1/2"
+        initial={{ opacity: 0, y: -20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 1 }}
+      >
+        <div className="w-6 h-10 border-2 border-gray-400 rounded-full flex justify-center">
+          <div className="w-1 h-3 bg-gray-400 rounded-full mt-2 animate-bounce" />
+        </div>
+      </motion.div>
     </section>
   );
 }
